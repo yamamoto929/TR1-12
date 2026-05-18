@@ -14,13 +14,27 @@
     <Filter Include="KamataEngine\Adapter">
       <UniqueIdentifier>{c6468eb4-788b-4a83-b207-a5f4804e56c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KamataEngine\header">
+      <UniqueIdentifier>{9404bf42-ead2-4d33-bc31-6c671bce6846}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="C:\KamataEngine\Adapter\Novice.cpp">
       <Filter>KamataEngine\Adapter</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>KamataEngine\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,6 +120,20 @@
     <ClInclude Include="C:\KamataEngine\DirectXGame\2d\ImGuiManager.h">
       <Filter>KamataEngine\Include</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Vector2.h">
+      <Filter>KamataEngine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>KamataEngine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.h">
+      <Filter>KamataEngine\header</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>KamataEngine\header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".editorconfig" />
   </ItemGroup>
 </Project>
