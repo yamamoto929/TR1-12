@@ -37,6 +37,15 @@
     <ClCompile Include="Rectangle.cpp">
       <Filter>KamataEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Manifold.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Integrate.cpp">
+      <Filter>KamataEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\KamataEngine\DirectXGame\audio\Audio.h">
@@ -132,6 +141,9 @@
     <ClInclude Include="Shape.h">
       <Filter>KamataEngine\header</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="Manifold.h" />
+    <ClInclude Include="Integrate.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

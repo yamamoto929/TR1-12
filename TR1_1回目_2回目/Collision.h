@@ -1,0 +1,5 @@
+﻿#pragma once
+#include "Circle.h"
+#include "Manifold.h"
+bool IsCollision(Circle& c1,  Circle& c2);
+void Collide(Circle& c1, Circle& c2, Manifold& manifold);
