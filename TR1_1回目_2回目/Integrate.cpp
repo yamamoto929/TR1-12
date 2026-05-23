@@ -9,4 +9,5 @@ void Integrate(Shape& shape) {
 	shape.Translate(shape.GetVelocity());
 
 	shape.SetForceAccumulator({ 0.0f,0.0f });
+	shape.SetVelocity((shape.GetVelocity() * 0.98f));
 }

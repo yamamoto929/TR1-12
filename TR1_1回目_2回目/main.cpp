@@ -26,18 +26,14 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 	circle1->SetMass(1.0f);
 
 	Circle* circle2 = new Circle(50.0f);
-	circle2->SetCenter({ 500.0f, 300.0f });
+	circle2->SetCenter({ 550.0f, 300.0f });
 	circle2->SetMass(1.0f);
 
-	Circle* circle3 = new Circle(50.0f);
-	circle3->SetCenter({ 400.0f, 400.0f });
-	circle3->SetMass(1.0f);
 
 	circles.push_back(circle1);
 	circles.push_back(circle2);
-	circles.push_back(circle3);
-
-
+	int mousePosX;
+	int mousePosY;
 	// bool drawManifold = false;
 
 	// ウィンドウの×ボタンが押されるまでループ
@@ -53,33 +49,47 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		///
 		/// ↓更新処理ここから
 		///	
-		circle1->Rotate(0.1f);
-		circle2->Rotate(0.1f);
+		if (Novice::IsTriggerMouse(0)) {
+			Novice::GetMousePosition(&mousePosX, &mousePosY);
+			Circle* circle = new Circle(50.0f);
+			Vector2 mouseVector2{ float(mousePosX),float(mousePosY) };
+			circle->SetCenter(mouseVector2);
+			circle->SetMass(1.0f);
+			circles.push_back(circle);
+		}
 
-		circle1->Translate(Vector2{ -0.1f,0.1f });
-		//circle2->Translate(Vector2{ 0.2f,0.2f });
+		for (Circle* circle : circles) {
+			circle->Update();
+		}
 
 		for (size_t i = 0;i < circles.size(); i++) {
-			for (size_t j = i ;j < circles.size(); j++) {
+			for (size_t j = i + 1;j < circles.size(); j++) {
 				if (i == j) { continue; }
 				Circle* c1 = circles[i];
 				Circle* c2 = circles[j];
 
+				bool isGenerateManifold = false;
 				Manifold manifold{};
 				if (IsCollision(*c1, *c2)) {
 					Collide(*c1, *c2, manifold);
+					isGenerateManifold = true;
 				} else {
 					c1->SetColor(0x000000FF);
 					c2->SetColor(0x000000FF);
 				}
-				manifolds.push_back(manifold);
+
+				if(isGenerateManifold){
+					Vector2 push = manifold.normal * manifold.depth * 0.5f;
+					//PositionalCorrection(c1, c2, manifold);
+					ResolveCollision(*c1, *c2, manifold);
+					manifolds.push_back(manifold);
+				}
+
+
 			}
 		}
 
-		int a = 0;
 		for (Circle* circle : circles) {
-			a++;
-			Novice::ConsolePrintf("c%d",a);
 			Integrate(*circle);
 		}
 
@@ -93,13 +103,6 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		for (Circle* circle : circles) {
 			circle->Draw();
 		}
-
-		for (size_t i = 0;i < circles.size(); i++) {
-			Circle* c1 = circles[i];
-			Novice::ScreenPrintf(0, 0 + int(i) * 20, "circle%d->center_ : %f , %f\n", int(i), c1->GetCenter().x, c1->GetCenter().y);
-			Novice::ScreenPrintf(int(c1->GetCenter().x), int(c1->GetCenter().y), "c%d", int(i));
-		}
-
 		///
 		/// ↑描画処理ここまで
 		///

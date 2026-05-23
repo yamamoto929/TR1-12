@@ -7,4 +7,5 @@ struct Manifold{
 	Vector2 contactPoint; // 衝突が発生する場所
 };
 
+
 void DrawManifold(const Manifold& manifold);

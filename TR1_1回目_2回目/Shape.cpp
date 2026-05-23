@@ -8,4 +8,6 @@ Shape::Shape() {
     mass_=0.0f;
     velocity_ = {};
     forceAccumulator_ = {};
+    friction_ = 0.0f;
+    restitution_ = 1.0f;
 }

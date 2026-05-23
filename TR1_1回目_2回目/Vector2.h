@@ -18,6 +18,10 @@ struct Vector2{
         return { x * scalar, y * scalar };
     }
 
+    Vector2 operator*(const Vector2& v) {
+        return { this->x * v.x,this->y * v.y };
+    }
+
     // 除算 
     Vector2 operator/(float scalar) const {
         return { x / scalar, y / scalar };
@@ -27,4 +31,8 @@ struct Vector2{
 Vector2 Normalize(const Vector2& v);
 
 float Length(const Vector2& v);
+
+float Distance(const Vector2& v1, const Vector2 v2);
+
+float Dot(const Vector2& v1, const Vector2 v2);
 
