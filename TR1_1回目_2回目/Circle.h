@@ -4,6 +4,7 @@
 class Circle : public Shape {
 private:
 	float radius_;
+	bool isGrounded_ = false;
 
 public:
 	Circle(float r);
@@ -13,6 +14,9 @@ public:
 
 	void SetRadius(float r) { radius_ = r; }
 	float GetRadius() const { return radius_; }
+
+	void SetGrounded(bool grounded) { isGrounded_ = grounded; }
+	bool IsGrounded()const { return isGrounded_; }
 
 	void Update() override;
 

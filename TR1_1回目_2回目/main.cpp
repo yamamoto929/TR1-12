@@ -59,35 +59,42 @@ int WINAPI WinMain(_In_ HINSTANCE, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ int) {
 		}
 
 		for (Circle* circle : circles) {
+			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE]) {
+				circle->SetCenter(circle->GetCenter() + Vector2{ 0.0f,-300.0f });
+			}
 			circle->Update();
 		}
 
-		for (size_t i = 0;i < circles.size(); i++) {
-			for (size_t j = i + 1;j < circles.size(); j++) {
+		for (size_t i = 0; i < circles.size(); i++) {
+			for (size_t j = i + 1; j < circles.size(); j++) {
 				if (i == j) { continue; }
 				Circle* c1 = circles[i];
 				Circle* c2 = circles[j];
 
-				bool isGenerateManifold = false;
 				Manifold manifold{};
 				if (IsCollision(*c1, *c2)) {
 					Collide(*c1, *c2, manifold);
-					isGenerateManifold = true;
-				} else {
-					c1->SetColor(0x000000FF);
-					c2->SetColor(0x000000FF);
-				}
 
-				if(isGenerateManifold){
-					Vector2 push = manifold.normal * manifold.depth * 0.5f;
-					//PositionalCorrection(c1, c2, manifold);
+					// 位置補正と速度解決を行う
+					PositionalCorrection(*c1, *c2, manifold);
 					ResolveCollision(*c1, *c2, manifold);
+
+
 					manifolds.push_back(manifold);
+
+
+					// 法線のY成分を見て、どっちが上か下か判定する
+					if (std::abs(manifold.normal.y) > 0.5f) {
+						if (manifold.normal.y > 0.0f) {
+							if (c2->IsGrounded()) { c1->SetGrounded(true); }
+						} else {
+							if (c1->IsGrounded()) { c2->SetGrounded(true); }
+						}
+					}
 				}
-
-
 			}
 		}
+
 
 		for (Circle* circle : circles) {
 			Integrate(*circle);
